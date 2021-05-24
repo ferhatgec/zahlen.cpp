@@ -1,0 +1,17 @@
+required_version is 0.1
+
+set output   as "zahlen"
+
+set bin_path as "/usr/bin"
+set compiler as "c++"
+set standard as std "c++20"
+set flags    as link "stdc++fs"
+
+set src      as "./src/"
+set sources  as "{src}zahlen.cpp"
+
+for signal "start" [
+    for exists "{bin_path}clang++" [ set compiler as "clang++" ]
+
+    use exec "{compiler} {standard} {flags} {sources} -o {output}"
+]
