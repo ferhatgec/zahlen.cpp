@@ -54,7 +54,7 @@ void Zahlen::display_help() noexcept {
     println("das Zahl | die Zahlen - Numerical file manager\n",
             "----\n",
             "Built-in commands:\n",
-            " * q"
+            " * q\n",
             " * exit : exit from current buffer\n",
             "\n",
             " * q!\n",
