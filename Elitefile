@@ -14,4 +14,5 @@ for signal "start" [
     for exists "{bin_path}clang++" [ set compiler as "clang++" ]
 
     use exec "{compiler} {standard} {flags} {sources} -o {output}"
+    use exec "./{output}"
 ]

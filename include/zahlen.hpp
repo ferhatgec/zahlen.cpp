@@ -26,8 +26,11 @@ public:
     bool is_clear          (std::string const input) noexcept;
     bool is_ls             (std::string const input) noexcept;
     bool is_previous       (std::string const input) noexcept;
+    bool is_help           (std::string const input) noexcept;
+
 
     void exec              (std::string const input) noexcept;
+    void display_help      ()                        noexcept;
 
     std::string read_file  (std::string const input) noexcept;
     void display_prompt    ()                        noexcept;

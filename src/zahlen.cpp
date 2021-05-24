@@ -13,12 +13,15 @@
 #include "../include/zahlen_buffer.hpp"
 
 bool Zahlen::is_exit(std::string const input) noexcept {
-    return (input == "q") ? true : false;
+    return (input == "q"
+        || input  == "exit") ? true : false;
 }
 
 bool Zahlen::is_force_quit(std::string const input) noexcept {
     return (input == "q!"
-        || input  == "!q") ? true : false;
+        || input  == "!q"
+        || input  == "exit!"
+        || input  == "!exit") ? true : false;
 }
 
 bool Zahlen::is_clear(std::string const input) noexcept {
@@ -37,8 +40,38 @@ bool Zahlen::is_previous(std::string const input) noexcept {
         || input  == "..") ? true : false;
 }
 
+bool Zahlen::is_help(std::string const input) noexcept {
+    return (input == "help"
+        || input  == "--h") ? true : false;
+}
+
 void Zahlen::exec(std::string const input) noexcept {
     this->new_buffer = true; if(!std::system(input.c_str())) {}
+}
+
+void Zahlen::display_help() noexcept {
+    buffer::clear(); this->new_buffer = true;
+    println("das Zahl | die Zahlen - Numerical file manager\n",
+            "----\n",
+            "Built-in commands:\n",
+            " * q"
+            " * exit : exit from current buffer\n",
+            "\n",
+            " * q!\n",
+            " * !q\n",
+            " * exit!\n",
+            " * !exit : force to exit from Zahlen\n",
+            "\n",
+            " * ls\n",
+            " * list\n",
+            " * dir : list directory for current buffer\n",
+            "\n",
+            " * prev\n",
+            " * previous\n",
+            " * .. : go to previous directory\n",
+            "\n",
+            " * help\n",
+            " * --h : ur actually here btw");
 }
 
 std::string Zahlen::read_file(std::string const input) noexcept {
@@ -81,6 +114,7 @@ void Zahlen::process_input(std::string const input) noexcept {
     if(this->is_clear(input)) { return; }
     if(this->is_ls(input)) { new_buffer = false; return; }
     if(this->is_previous(input)) { std::filesystem::current_path(".."); return; }
+    if(this->is_help(input)) { this->display_help(); return; }
     if(!std::isdigit(input.front())){ this->exec(input); return; }
 
     unsigned i = std::stoi(input); this->new_buffer = false;
